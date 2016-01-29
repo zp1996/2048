@@ -61,3 +61,31 @@
   color: #fff7eb;
   background: #734028;
 }
+/*常规移动设备*/
+@media screen and (max-width: 768px) {
+	#wrapper {
+		width: 100%;
+		height: 400px;
+		margin: 25% auto;
+	}
+	#wrapper > div {
+		width: 20%;
+		height: 75px;
+		line-height: 75px;
+		margin: 20px 0 0 15px;
+	}
+}
+/*iphone4 以及 iphpne5*/
+@media screen and (max-width: 320px) {
+	#wrapper {
+		width: 100%;
+		height: 400px;
+		margin: 10px auto;
+	}
+	#wrapper > div {
+		width: 20%;
+		height: 75px;
+		line-height: 75px;
+		margin: 20px 0 0 12px;
+	}
+}

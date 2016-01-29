@@ -5,6 +5,7 @@ function Game (wrapper) {
 }
 Game.prototype = {
 	constructor: constructor,
+	keynum: 0,
 	init: function () {
 		for (var i = 0, length = this.pieces.length; i < length; i++) {
 			var piece = this.createPiece();
@@ -125,23 +126,38 @@ Game.prototype = {
 				return true;
 			}
 		}
+	},
+	changeStyle: function (keynum) {
+		var keys = [37, 38, 39, 40];
+		if (this.over()) {
+			if (this.win()) alert("你已经胜利了");
+			else alert("你已经输了");
+		} else {
+			if (keys.indexOf(keynum) > - 1) {
+				this.move(keynum);					
+			}
+		}
+	},
+	gameStart: function (style) {
+		var game = this;
+		if (style === 'pc') {
+			// 键盘事件
+			document.onkeydown = function (event) {
+				event = event || window.event;
+				game.keynum = event.keyCode || event.which;
+				game.changeStyle(game.keynum);
+			}
+		} else if (style === 'phone') {
+			Touch(game.keynum, game.changeStyle.bind(this));
+		}
 	}
 };
 window.onload = function () {
 	var wrapper = document.querySelector("#wrapper"),
-		game = new Game(wrapper);
+		game = new Game(wrapper),
+		navigatorInfo = navigator.appVersion,
+		playStyle = navigatorInfo.match(/(Android)|(iPhone)/gi),
+		playStyle = playStyle ? 'phone' : 'pc';
 	game.init();
-	document.onkeydown = function (event) {
-		event = event || window.event;
-		var keynum = event.keyCode || event.which,
-			keys = [37, 38, 39, 40];
-		if (game.over()) {
-			if (game.win()) alert("你已经胜利了");
-			else alert("你已经输了");
-		} else {
-			if (keys.indexOf(keynum) > - 1) {
-				game.move(keynum);					
-			}
-		}
-	}
+	game.gameStart(playStyle);
 };
