@@ -29,7 +29,7 @@ var Touch = function (keynum, callback) {
 		e.preventDefault();
 		var	x = Math.abs(disX),
 			y = Math.abs(disY);
-		if (x < slideW / 10 && y < slideH / 50) return;
+		if (x < slideW / 5 && y < slideH / 20) return;
 		if (x > y) {
 			keynum = disX > 0 ? 39 : 37;
 		} else {
